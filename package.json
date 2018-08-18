@@ -1,0 +1,23 @@
+{
+  "name": "wdm-webdriverio",
+  "description": "webdriver-manager with webdriverio",
+  "scripts": {
+    "errs": "npm run wdio wdio_skips.conf.js",
+    "test": "npm run wdio wdio.conf.js",
+    "wdio": "wdio"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cnishina/wdm-webdriverio.git"
+  },
+  "author": "Craig Nishina <craig.nishina@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/cnishina/wdm-webdriverio#readme",
+  "dependencies": {
+    "webdriver-manager-replacement": "^0.4.1",
+    "webdriverio": "^4.13.2"
+  },
+  "devDependencies": {
+    "wdio-jasmine-framework": "^0.3.5"
+  }
+}
