@@ -3,7 +3,7 @@ describe('', () => {
     browser.url('http://google.com');
     let title = browser.getTitle();
     console.log('Title was: ' + title);
-    expect(title).toBe('foobar');  // should fail.
+    expect(title).toBe('Google');
   });
 });
 

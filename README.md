@@ -2,7 +2,7 @@
 
 ### This test skips
 
-`npm run errs` or `wdio wdio_skip.conf.js`
+`npm run skips` or `wdio wdio_skips.conf.js`
 
 ```
 describe('', () => {
