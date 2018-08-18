@@ -1,5 +1,5 @@
-describe('a test', () => {
-  it('should navigate to google', () => {
+describe('webdriver-manager with webdriverio', () => {
+  it('should launch Google', () => {
     browser.url('http://google.com');
     let title = browser.getTitle();
     console.log('Title was: ' + title);

@@ -18,6 +18,6 @@
     "webdriverio": "4.13.2"
   },
   "devDependencies": {
-    "wdio-jasmine-framework": "0.3.5"
+    "wdio-jasmine-framework": "^0.3.5"
   }
 }
