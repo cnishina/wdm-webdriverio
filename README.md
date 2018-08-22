@@ -1,30 +1,48 @@
-# `it` block skips. As designed?
-
-### Version
-
-wdio: 4.13.2
-wdio-jasmine-framework: 0.3.5
-
-### This test skips
-
-`npm run skips` or `wdio wdio_skips.conf.js`
+### To run this test
 
 ```
-describe('', () => {
-  it('', () => {  // No description skips this test.
-    console.log('We got here!');
-  });
-});
+npm install
+npm test
 ```
 
-### This test runs
+### Webdriver-manager as a dependency
 
-`npm test` or `wdio wdio.conf.js`
+In `wdio.config.js`, the following was added to download the binaries, start
+the selenium server standalone, and stop the server:
+
 
 ```
-describe('', () => {
-  it('some text', () => {
-    console.log('We got here!');
-  });
-});
+const wdm = require('webdriver-manager-replacement');
+
+// Set the log level for webdriver-manager. If this is not set, nothing will log.
+wdm.setLogLevel('info');
+
+// To run this in the test, run as detach must be set to true. If this is not
+// set to true, the selenium server standalone process will not return, preventing
+// tests from being executed.
+const runAsDetach = true;
+const options = wdm.initOptions(
+  [wdm.Provider.ChromeDriver, wdm.Provider.Selenium],
+  runAsDetach);
+    
+exports.config = {
+
+  // <<< Other configurations for wdio >>>
+
+  onPrepare: function () {
+    // update binaries and start the server.
+    return wdm.update(options).then(() => {
+      return wdm.start(options).then(() => {
+        // wait for the server to start in detached mode.
+      });
+    });
+  },
+  onComplete: function () {
+    // shutdown the standalone server.
+    return wdm.shutdown(options).then(() => {
+      // wait to shutdown the server.
+    });
+  }
+}
+
 ```
