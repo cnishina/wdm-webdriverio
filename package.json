@@ -2,7 +2,6 @@
   "name": "wdm-webdriverio",
   "description": "webdriver-manager with webdriverio",
   "scripts": {
-    "skips": "npm run wdio wdio_skips.conf.js",
     "test": "npm run wdio wdio.conf.js",
     "wdio": "wdio"
   },
@@ -15,7 +14,7 @@
   "homepage": "https://github.com/cnishina/wdm-webdriverio#readme",
   "dependencies": {
     "loglevel": "^1.6.1",
-    "webdriver-manager-replacement": "^0.4.1",
+    "webdriver-manager-replacement": "^0.5.1",
     "webdriverio": "4.13.2"
   },
   "devDependencies": {
