@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ### To run this test
 
 ```
@@ -45,4 +46,43 @@ exports.config = {
   }
 }
 
+=======
+# webdriver-manager + webdriverio
+
+Use webdriver-manager-replacement as a dependency library and not as a CLI.
+
+```
+const wdm = require('webdriver-manager-replacement');
+const log = require('loglevel');
+let selenium = null;
+
+exports.config = {
+  ...
+
+  onPrepare: function () {
+    // if value is not set, nothing from wdm gets logged.
+    log.setLevel('info');
+
+    // Should create an initOptions method instead of this...
+    chrome = new wdm.ChromeDriver({});
+    selenium = new wdm.SeleniumServer({});
+    const options = {
+      providers: [{
+        binary: chrome
+      }],
+      server: {
+        binary: selenium,
+        runAsNode: true,
+        runAsDetach: true
+      }
+    };
+    return wdm.update(options).then(() => {
+      return wdm.start(options);
+    });
+  },
+  onComplete: function () {
+    selenium.stopServer();
+  }
+};
+>>>>>>> deps(webdriver-manager): update for new version of webdriver-manager-replacement
 ```

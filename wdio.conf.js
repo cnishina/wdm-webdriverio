@@ -1,7 +1,8 @@
 const wdm = require('webdriver-manager-replacement');
+const log = require('loglevel');
 
 // Set the log level for webdriver-manager. If this is not set, nothing will log.
-wdm.setLogLevel('info');
+log.setLogLevel('info');
 
 // To run this in the test, run as detach must be set to true. If this is not
 // set to true, the selenium server standalone process will not return, preventing
@@ -10,7 +11,7 @@ const runAsDetach = true;
 const options = wdm.initOptions(
   [wdm.Provider.ChromeDriver, wdm.Provider.Selenium],
   runAsDetach);
-    
+
 exports.config = {
   specs: [
     './test.js'
@@ -38,17 +39,28 @@ exports.config = {
     expectationResultHandler: function(passed, assertion) {}
   },
   onPrepare: function () {
-    // update binaries and start the server.
+    // if value is not set, nothing from wdm gets logged.
+    log.setLevel('info');
+
+    // Should create an initOptions method instead of this...
+    const options = {
+      browserDrivers: [{
+        name: 'chromedriver'
+      }],
+      server: {
+        name: 'selenium',
+        runAsNode: true,
+        runAsDetach: true
+      }
+    };
     return wdm.update(options).then(() => {
       return wdm.start(options).then(() => {
         // wait for the server to start in detached mode.
       });
     });
   },
-  onComplete: function () {
-    // shutdown the standalone server.
-    return wdm.shutdown(options).then(() => {
-      // wait to shutdown the server.
-    });
+  onComplete: () => {
+    const options = {server: {runAsNode: true, runAsDetach: true}};
+    return wdm.shutdown(options).then(() => {});
   }
 }
